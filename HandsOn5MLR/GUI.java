@@ -15,20 +15,24 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class GUI extends JFrame {
-	private Handson5Agent myAgent;
+	private HandsOn5 myAgent;
 
 	private JTextField xValueInput;
-
-	public GUI(Handson4Agent a) {
+	private JTextField x2ValueInput;
+	public GUI(HandsOn5 a) {
             super(a.getLocalName());
 
             myAgent = a;
 
             JPanel p = new JPanel();
             p.setLayout(new GridLayout(2, 2));
-            p.add(new JLabel("X value to predict Y:"));
+            p.add(new JLabel("X1 value to predict Y:"));
             xValueInput = new JTextField(15);
             p.add(xValueInput);
+            p.add(new JLabel("X2 value to predict Y:"));
+            x2ValueInput = new JTextField(15);
+            p.add(x2ValueInput);
+            
             getContentPane().add(p, BorderLayout.CENTER);
 
             JButton addButton = new JButton("Predict");
@@ -37,8 +41,10 @@ public class GUI extends JFrame {
 					public void actionPerformed(ActionEvent ev) {
                             try {
                                     String xValue = xValueInput.getText().trim();
-                                    myAgent.predict(Double.parseDouble(xValue));
+                                    String x2Value = x2ValueInput.getText().trim();
+                                    myAgent.predict(Double.parseDouble(xValue),Double.parseDouble(x2Value));
                                     xValueInput.setText("");
+                                    x2ValueInput.setText("");
                             }
                             catch (Exception e) {
                                     JOptionPane.showMessageDialog(GUI.this, "Invalid values. "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

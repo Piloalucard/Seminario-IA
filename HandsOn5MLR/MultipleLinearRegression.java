@@ -31,14 +31,48 @@ public class MultipleLinearRegression {
     double sumOfProductX1X2 = 0;
 
     for (int i = 0; i < n; i++) {
-      sumOfX1 += data[i][x1];
-      sumOfX2 += data[i][x2];
-      sumOfY += data[i][y];
-      sumOfX1Square += data[i][x1] * data[i][x1];
-      sumOfX2Square += data[i][x2] * data[i][x2];
-      sumOfProductX1Y += data[i][x1] * data[i][y];
-      sumOfProductX2Y += data[i][x2] * data[i][y];
-      sumOfProductX1X2 += data[i][x1] * data[i][x2];
+      try {
+    	  sumOfX1 += data[i][x1];
+      }catch (Exception e){
+    	  sumOfX1 += 0;
+      }
+      try {
+    	  sumOfX2 += data[i][x2];
+      }catch (Exception e){
+        sumOfX2 += 0;
+      }
+      try {
+    	  sumOfY += data[i][y];
+      }catch (Exception e){
+    	  sumOfY += 0;
+      }
+      try {
+        sumOfX1Square += data[i][x1] * data[i][x1];
+      }catch (Exception e){
+        sumOfX1Square += 0;
+      }
+      try {
+        sumOfX2Square += data[i][x2] * data[i][x2];
+      }catch (Exception e){
+        sumOfX2Square += 0;
+      }
+      try {
+        sumOfProductX1Y += data[i][x1] * data[i][y];
+      }catch (Exception e){
+        sumOfProductX1Y += 0;
+      }
+      try {
+        sumOfProductX2Y += data[i][x2] * data[i][y];
+      }catch (Exception e){
+        sumOfProductX2Y += 0;
+      }
+
+      try {
+        sumOfProductX1X2 += data[i][x1] * data[i][x2];
+      }catch (Exception e){
+        sumOfProductX1X2 += 0;
+      }
+
     }
 
     double[][] linearEquationMatrix = {

@@ -15,12 +15,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class GUI extends JFrame {
-	private Handson4Agent myAgent;
+	private HandsOn4 myAgent;
 
 	private JTextField xValueInput;
         private JTextField yValueInput;
 
-	public GUI(Handson4Agent a) {
+	public GUI(HandsOn4 a) {
             super(a.getLocalName());
 
             myAgent = a;
@@ -30,9 +30,7 @@ public class GUI extends JFrame {
             p.add(new JLabel("X1:"));
             xValueInput = new JTextField(15);
             p.add(xValueInput);
-            p.add(new JLabel("X2:"));
-            yValueInput = new JTextField(15);
-            p.add(yValueInput);
+
             getContentPane().add(p, BorderLayout.CENTER);
 
             JButton addButton = new JButton("Predict");
@@ -43,9 +41,7 @@ public class GUI extends JFrame {
                                     String xValue = xValueInput.getText().trim();
                                     myAgent.predict(Double.parseDouble(xValue));
                                     xValueInput.setText("");
-                                    String yValue = yValueInput.getText().trim();
-                                    myAgent.predict(Double.parseDouble(yValue));
-                                    yValueInput.setText("");
+
                             }
                             catch (Exception e) {
                                     JOptionPane.showMessageDialog(GUI.this, "Invalid values. "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
