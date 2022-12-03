@@ -1,50 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-import jade.core.Agent;
-import jade.core.behaviours.OneShotBehaviour;
+import jade.core.Profile;
+import jade.core.ProfileImpl;
+import jade.core.Runtime;
+import jade.wrapper.AgentController;
+import jade.wrapper.ContainerController;
+import jade.wrapper.StaleProxyException;
 
-/**
- *
- * @author GustavoPadilla
- */
+public class Main {
+    ContainerController container;
 
-public class Handson6Agent extends Agent {
-    private Handson6GUI gui;
-
-    @Override
-    protected void setup() {
-        System.out.println("Empezando Agente del HANDS ON 6 MLR");
-
-        gui = new Handson6GUI(this);
-        gui.showGui();
+    public static void main(String[] args){
+        Main jadeApp = new Main();
+        jadeApp.run();
     }
 
-    @Override
-    protected void takeDown() {
-        gui.dispose();
-        System.out.println("Hands On 6 Terminando");
-    }
+    public void run(){
+        //Create the JADE environment
+        Runtime runtime = Runtime.instance();
+        Profile profile = new ProfileImpl();
+        profile.setParameter(Profile.MAIN_HOST, "localhost");
+        profile.setParameter(Profile.GUI, "true");
+        container = runtime.createMainContainer(profile);
 
-    public void predict() {
-        addBehaviour(new OneShotBehaviour() {
-            @Override
-            public void action() {
-                Gradiente GR = new Gradiente();
-                System.out.println("");
-                GR.displayGradienteEquation();
-                System.out.println("");
-                GR.Beta0();
-                GR.Beta1();
-                System.out.println("");
-                GR.Error();
-                System.out.println("");
-                GR.predict();
-   
-            }
-        });
+        //Call the RMA GUI
+        try{
+            AgentController agentController = container.createNewAgent("Hands On 6 Agent", "HandsOn6", null);
+            agentController.start();
+        } catch(StaleProxyException e){
+            e.printStackTrace();
+        }
     }
 }

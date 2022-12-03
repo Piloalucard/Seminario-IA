@@ -1,89 +1,33 @@
 
-import jade.core.Agent;
-import jade.core.behaviours.OneShotBehaviour;
-import java.sql.SQLOutput;
-import java.text.DecimalFormat;
+import jade.core.Profile;
+import jade.core.ProfileImpl;
+import jade.core.Runtime;
+import jade.wrapper.AgentController;
+import jade.wrapper.ContainerController;
+import jade.wrapper.StaleProxyException;
 
+public class Main {
+    ContainerController container;
 
-
-/**
- *
- * @author GustavoPadilla
- */
-
-public class Handson8Agent extends Agent {
-    private Handson8GUI gui;
-
-    @Override
-    protected void setup() {
-        System.out.println("Agent " + getLocalName() + "started.");
-        addBehaviour(new SolveEquationnBehaviour());
-        gui = new Handson8GUI(this);
-        gui.showGui();
+    public static void main(String[] args){
+        Main jadeApp = new Main();
+        jadeApp.run();
     }
 
-    @Override
-    protected void takeDown() {
-        gui.dispose();
-        System.out.println("Hands On 8 Terminando");
-    }
+    public void run(){
+        //Create the JADE environment
+        Runtime runtime = Runtime.instance();
+        Profile profile = new ProfileImpl();
+        profile.setParameter(Profile.MAIN_HOST, "localhost");
+        profile.setParameter(Profile.GUI, "true");
+        container = runtime.createMainContainer(profile);
 
-    public void predict() {
-        addBehaviour(new OneShotBehaviour() {
-            @Override
-            public int onEnd() {
-                myAgent.doDelete();
-                return super.onEnd();
-            }
-            public void action() {
-                chromosomeLength = 6;
-               int target = 30;
-               GeneticAlgorithm ga = new GeneticAlgorithm(populationSize, mutationRate, crossoverRate, elitismCount,
-                       target);
-               Population population = ga.initPopulation(chromosomeLength);
-               int generation = 1;
-   
-               ga.evalPopulation(population);
-   
-               while (!ga.isTerminationConditionMet(population)) {
-                   printGenerationData(generation, population);
-   
-                   int populationSize = 30;
-               double mutationRate = 0.001;
-               double crossoverRate = 0.95;
-               int elitismCount = 0;
-               intpopulation = ga.crossoverPopulation(population);
-   
-                   population = ga.mutatePopulation(population);
-   
-                   ga.evalPopulation(population);
-   
-                   generation++;
-               }
-   
-               printGenerationData(generation, population);
-   
-               System.out.println("Found solution in " + generation + " generations");
-               System.out.println("Best solution chromosome: " + population.getFittest(0).toString());
-               System.out.println("Best solution equation: " + population.getFittest(0).equationToString());
-           }
-   
-           public void printGenerationData(int generation, Population population) {
-               double populationFitness = population.getPopulationFitness();
-               System.out.println("Generation:" + generation);
-               System.out.println("Population fitness: " + populationFitness);
-   
-               System.out.println("Chromosomes:");
-               for (Individual individual : population.getIndividuals()) {
-                   double individualFitness = individual.getFitness();
-                   double proportionateFitness = (individualFitness * 100) / populationFitness;
-                   System.out.println(individual.toString() + " | Fitness: " + individual.getFitness()
-                           + " | Proportionate fitness value: " + proportionateFitness + "%");
-               }
-   
-               System.out.println();
-           }
-        });
+        //Call the RMA GUI
+        try{
+            AgentController agentController = container.createNewAgent("Hands On 8 Agent", "HandsOn8", null);
+            agentController.start();
+        } catch(StaleProxyException e){
+            e.printStackTrace();
+        }
     }
 }
-

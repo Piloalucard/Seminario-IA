@@ -15,18 +15,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class GUI extends JFrame {
-	private Handson4Agent myAgent;
+	private HandsOn6 myAgent;
 
 	private JTextField xValueInput;
 
-	public GUI(Handson6Agent a) {
+	public GUI(HandsOn6 a) {
             super(a.getLocalName());
 
             myAgent = a;
 
             JPanel p = new JPanel();
             p.setLayout(new GridLayout(2, 2));
-            p.add(new JLabel("X value to predict Y:"));
+            p.add(new JLabel("Valor X que predice Y:"));
             xValueInput = new JTextField(15);
             p.add(xValueInput);
             getContentPane().add(p, BorderLayout.CENTER);

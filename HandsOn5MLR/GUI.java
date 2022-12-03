@@ -26,10 +26,10 @@ public class GUI extends JFrame {
 
             JPanel p = new JPanel();
             p.setLayout(new GridLayout(2, 2));
-            p.add(new JLabel("X1 value to predict Y:"));
+            p.add(new JLabel("Valor X1 que predice Y:"));
             xValueInput = new JTextField(15);
             p.add(xValueInput);
-            p.add(new JLabel("X2 value to predict Y:"));
+            p.add(new JLabel("Valor X2 que predice Y:"));
             x2ValueInput = new JTextField(15);
             p.add(x2ValueInput);
             

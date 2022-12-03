@@ -15,30 +15,25 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class GUI extends JFrame {
-	private Handson8Agent myAgent;
+	private HandsOn8 myAgent;
 
 	private JTextField xValueInput;
 
-	public GUI(Handson7Agent a) {
+	public GUI(HandsOn8 a) {
             super(a.getLocalName());
 
             myAgent = a;
 
             JPanel p = new JPanel();
             p.setLayout(new GridLayout(2, 2));
-            p.add(new JLabel("X value to predict Y:"));
-            xValueInput = new JTextField(15);
-            p.add(xValueInput);
             getContentPane().add(p, BorderLayout.CENTER);
 
-            JButton addButton = new JButton("Predict");
+            JButton addButton = new JButton("Predecir");
             addButton.addActionListener(new ActionListener() {
                     @Override
 					public void actionPerformed(ActionEvent ev) {
                             try {
-                                    String xValue = xValueInput.getText().trim();
-                                    myAgent.predict(Double.parseDouble(xValue));
-                                    xValueInput.setText("");
+                                    myAgent.predict();
                             }
                             catch (Exception e) {
                                     JOptionPane.showMessageDialog(GUI.this, "Invalid values. "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
