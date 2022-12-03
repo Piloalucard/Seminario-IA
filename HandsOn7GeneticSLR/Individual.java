@@ -61,27 +61,5 @@ public class Individual {
         return output;
     }
 
-    public void setLength() {
 
-    }
-
-    public void setGene() {
-
-    }
-
-    public void setFitness() {
-
-    }
-    /*
-     * public int getLength(){
-     * 
-     * }
-     * public int getChromosome(){
-     * 
-     * }
-     * 
-     * public int getFitness(){
-     * 
-     * }
-     */
 }
