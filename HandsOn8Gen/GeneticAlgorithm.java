@@ -9,7 +9,8 @@ public class GeneticAlgorithm {
     private int elitismCount;
     private int target;
 
-    public GeneticAlgorithm(int populationSize, double mutationRate, double crossoverRate, int elitismCount, int target) {
+    public GeneticAlgorithm(int populationSize, double mutationRate, double crossoverRate, int elitismCount, int target) 
+    {
         this.populationSize = populationSize;
         this.mutationRate = mutationRate;
         this.crossoverRate = crossoverRate;
@@ -17,19 +18,22 @@ public class GeneticAlgorithm {
         this.target = target;
     }
 
-    public Population initPopulation(int chromosomeLength) {
+    public Population initPopulation(int chromosomeLength) 
+    {
         Population population = new Population(this.populationSize, chromosomeLength);
         return population;
     }
 
-    public double calcFitness(Individual individual) {
+    public double calcFitness(Individual individual) 
+    {
         int equationResult = individual.evaluate();
         double fitness = 100 - Math.abs(equationResult - this.target);
         individual.setFitness(fitness);
         return fitness;
     }
 
-    public void evalPopulation(Population population) {
+    public void evalPopulation(Population population) 
+    {
         double populationFitness = 0;
 
         for(Individual individual : population.getIndividuals()) 

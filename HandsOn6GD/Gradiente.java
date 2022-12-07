@@ -13,14 +13,16 @@ public class Gradiente {
     private final double error;
     private boolean stop;
     
-    public Gradiente(){
+    public Gradiente()
+    {
         this.lR = 0.0005; 
         this.MI = 100000;
         this.error = 0.00001;
         this.stop = false;
         this.b = new double[] {};
     }
-    public Gradiente(double[][] data){
+    public Gradiente(double[][] data)
+    {
         lR = 0.0005; 
         MI = 100000;
         error = 0.00001;
@@ -48,9 +50,10 @@ public class Gradiente {
         Ecuacion();
     }
     
-    public final void gradientDescent(double[][] data){
-    }
-    private void stepGradient(double[][] data){
+    public final void gradientDescent(double[][] data)
+    {}
+    private void stepGradient(double[][] data)
+    {
         if(Math.abs(calcError(data)) <= error){
             stop = true;
             return;
@@ -74,7 +77,8 @@ public class Gradiente {
         for(int i = 0; i < numberOfXs; i++)
             b[i] = b[i] - (lR * gradient[i]);
     }
-    private double calcError(double[][] data){ 
+    private double calcError(double[][] data)
+    { 
         double totalError = 0;
         for(int i = 0; i < data[0].length; i++){
             totalError += (data[i][data[i].length-1] - calcYHat(data[i]))* (data[i][data[i].length-1] - calcYHat(data[i]));
@@ -82,14 +86,16 @@ public class Gradiente {
         System.out.println("Error: " + totalError);
         return totalError / data.length;
     }
-    private double calcYHat(double [] factor){
+    private double calcYHat(double [] factor)
+    {
         double yHat = b[0];
         for(int i = 0; i < factor.length - 1; i++)
             yHat += b[i+1] * factor[i];
         return yHat;
     }
 
-    public void Ecuacion(){
+    public void Ecuacion()
+    {
         String equation = "Gradient descent.\nŷ = " + String.format("%.2f", b[0]);
         for(int i = 1; i < b.length; i++){
             equation += " + " + String.format("%.2f", b[i]) + "*X" + i;
@@ -97,10 +103,12 @@ public class Gradiente {
         System.out.println(equation);
     }
 
-    public double predictFor(double x){
+    public double predictFor(double x)
+    {
         if(b.length == 0) return 0;
         double y = b[0];
-        for(int i = 1; i < b.length; i++){
+        for(int i = 1; i < b.length; i++)
+        {
             y += b[i] * x;
         }
         System.out.println("y = " + String.format("%.2f", y));

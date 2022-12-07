@@ -15,70 +15,68 @@ public class MultipleLinearRegression {
     double[][] data = dataset.getData();
     int n = data.length;
 
-    // Variable position in tuple
     int x1 = 0;
     int x2 = 1;
     int y = 2;
 
-    // Sums
-    double sumOfX1 = 0;
-    double sumOfX2 = 0;
-    double sumOfY = 0;
-    double sumOfX1Square = 0;
-    double sumOfX2Square = 0;
-    double sumOfProductX1Y = 0;
-    double sumOfProductX2Y = 0;
-    double sumOfProductX1X2 = 0;
+    double sumX1 = 0;
+    double sumX2 = 0;
+    double sumY = 0;
+    double X1Sq = 0;
+    double X2Sq = 0;
+    double X1pY = 0;
+    double X2pY = 0;
+    double X1pX2 = 0;
 
     for (int i = 0; i < n; i++) {
       try {
-    	  sumOfX1 += data[i][x1];
+    	  sumX1 += data[i][x1];
       }catch (Exception e){
-    	  sumOfX1 += 0;
+    	  sumX1 += 0;
       }
       try {
-    	  sumOfX2 += data[i][x2];
+    	  sumX2 += data[i][x2];
       }catch (Exception e){
-        sumOfX2 += 0;
+        sumX2 += 0;
       }
       try {
-    	  sumOfY += data[i][y];
+    	  sumY += data[i][y];
       }catch (Exception e){
-    	  sumOfY += 0;
+    	  sumY += 0;
       }
       try {
-        sumOfX1Square += data[i][x1] * data[i][x1];
+        X1Sq += data[i][x1] * data[i][x1];
       }catch (Exception e){
-        sumOfX1Square += 0;
+        X1Sq += 0;
       }
       try {
-        sumOfX2Square += data[i][x2] * data[i][x2];
+        X2Sq += data[i][x2] * data[i][x2];
       }catch (Exception e){
-        sumOfX2Square += 0;
+        X2Sq += 0;
       }
       try {
-        sumOfProductX1Y += data[i][x1] * data[i][y];
+        X1pY += data[i][x1] * data[i][y];
       }catch (Exception e){
-        sumOfProductX1Y += 0;
+        X1pY += 0;
       }
       try {
-        sumOfProductX2Y += data[i][x2] * data[i][y];
+        X2pY += data[i][x2] * data[i][y];
       }catch (Exception e){
-        sumOfProductX2Y += 0;
+        X2pY += 0;
       }
 
       try {
-        sumOfProductX1X2 += data[i][x1] * data[i][x2];
+        X1pX2 += data[i][x1] * data[i][x2];
       }catch (Exception e){
-        sumOfProductX1X2 += 0;
+        X1pX2 += 0;
       }
 
     }
 
     double[][] linearEquationMatrix = {
-      {n,       sumOfX1,          sumOfX2,          sumOfY},
-      {sumOfX1, sumOfX1Square,    sumOfProductX1X2, sumOfProductX1Y},
-      {sumOfX2, sumOfProductX1X2, sumOfX2Square,    sumOfProductX2Y},
+      {n,       sumX1,          sumX2,          sumY},
+      {sumX1, X1Sq,    X1pX2, X1pY},
+      {sumX2, X1pX2, X2Sq,    X2pY},
     };
     
     double[] results = MatrixOperations.cramer(linearEquationMatrix);
